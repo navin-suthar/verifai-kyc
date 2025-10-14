@@ -1,5 +1,3 @@
-"""Human-in-the-loop decisioning from confidence, rules and mock verification."""
-
 from __future__ import annotations
 
 from app.core.config import Settings
@@ -15,16 +13,6 @@ def decide_status(
     auto_verify_min: int,
     review_min: int,
 ) -> tuple[ApplicationStatus, str]:
-    """Apply configurable thresholds plus safety overrides.
-
-    Policy:
-      - confidence >= auto_verify_min AND no error-level failures AND mock verified
-        → automatically verified
-      - confidence in [review_min, auto_verify_min) OR warnings / partial mock match
-        → human review
-      - confidence < review_min OR hard failures with a registry miss
-        → rejected (manual investigation)
-    """
     error_fails = failed_checks(validation, severity="error")
     warning_fails = failed_checks(validation, severity="warning")
     ver_status = (verification or {}).get("status")

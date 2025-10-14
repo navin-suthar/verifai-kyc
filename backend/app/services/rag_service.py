@@ -1,10 +1,3 @@
-"""Local RAG over synthetic KYC policy documents.
-
-Retrieval uses Qdrant + FastEmbed when available, and a lexical fallback so
-tests and offline demos still work. The generator is instructed never to invent
-policy that is not present in the retrieved sources.
-"""
-
 from __future__ import annotations
 
 import hashlib

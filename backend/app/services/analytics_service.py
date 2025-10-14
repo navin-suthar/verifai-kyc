@@ -1,5 +1,3 @@
-"""Aggregations for the dashboard and analytics pages (DB-agnostic)."""
-
 from __future__ import annotations
 
 from collections import defaultdict

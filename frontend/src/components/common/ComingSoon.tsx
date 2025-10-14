@@ -7,7 +7,6 @@ interface ComingSoonProps {
   phase: string;
 }
 
-/** Placeholder used while a feature is scheduled for a later build phase. */
 export default function ComingSoon({ title, description, phase }: ComingSoonProps) {
   return (
     <>

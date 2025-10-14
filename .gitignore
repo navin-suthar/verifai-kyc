@@ -40,3 +40,7 @@ rag/embeddings/cache/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Local-only notes
+SECURITY.md
+

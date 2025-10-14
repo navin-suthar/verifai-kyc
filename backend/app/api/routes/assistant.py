@@ -13,7 +13,6 @@ router = APIRouter(prefix="/assistant", tags=["assistant"])
 
 
 def _case_context(app) -> str:  # noqa: ANN001
-    """Build a structured case brief the RAG assistant can use to diagnose issues."""
     field_lines = []
     for f in app.fields or []:
         field_lines.append(

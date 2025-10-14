@@ -14,8 +14,6 @@ if TYPE_CHECKING:
 
 
 class Review(Base, IdMixin):
-    """A human reviewer's decision on an application (append-only history)."""
-
     __tablename__ = "reviews"
 
     application_id: Mapped[str] = mapped_column(

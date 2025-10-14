@@ -1,5 +1,3 @@
-"""Session token helpers (HS256 JWT) and constant-time credential checks."""
-
 from __future__ import annotations
 
 import hmac
@@ -15,7 +13,6 @@ ALGORITHM = "HS256"
 
 
 def verify_demo_credentials(settings: Settings, username: str, password: str) -> bool:
-    """Compare both fields in constant time to avoid timing side channels."""
     user_ok = hmac.compare_digest(username.encode(), settings.demo_username.encode())
     pass_ok = hmac.compare_digest(password.encode(), settings.demo_password.encode())
     return user_ok and pass_ok

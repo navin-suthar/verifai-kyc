@@ -15,8 +15,6 @@ if TYPE_CHECKING:
 
 
 class Application(Base, IdMixin, TimestampMixin):
-    """One KYC application == one uploaded synthetic document and its outcome."""
-
     __tablename__ = "applications"
 
     customer_id: Mapped[str] = mapped_column(String(32), unique=True, nullable=False, index=True)

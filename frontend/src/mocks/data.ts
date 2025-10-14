@@ -1,7 +1,3 @@
-/**
- * Synthetic demo data used when VITE_USE_MOCKS=true (Phase 1) and by tests.
- * Every name, ID and address here is invented. Nothing maps to a real person.
- */
 import type { ApplicationStatus, ApplicationSummary, DashboardSummary, DocumentType } from '@/types/domain';
 
 const NAMES = [

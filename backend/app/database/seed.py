@@ -1,13 +1,3 @@
-"""Seed the database with synthetic KYC applications.
-
-All names, identifiers and addresses are invented. Synthetic ID formats are
-deliberately different from any real-world scheme:
-  - Synthetic PAN      : SYNTHETIC + 4 digits          (e.g. SYNTHETIC1234)
-  - Synthetic National : DEMO-####-####-####
-  - Synthetic Passport : SYNP + 7 digits
-Run:  python -m app.database.seed [--reset]
-"""
-
 from __future__ import annotations
 
 import argparse

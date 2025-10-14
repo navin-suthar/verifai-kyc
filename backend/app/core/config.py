@@ -1,9 +1,3 @@
-"""Application configuration loaded from environment variables / .env.
-
-Every tunable (thresholds, limits, model names) lives here so behaviour can be
-changed without touching code. Secrets are never defaulted to production values.
-"""
-
 from __future__ import annotations
 
 from functools import lru_cache
@@ -23,14 +17,12 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
-    # --- App ---------------------------------------------------------------
     app_name: str = "VerifAI KYC Platform"
     environment: str = Field(default="development", pattern="^(development|test|production)$")
     debug: bool = False
     api_prefix: str = "/api"
     log_level: str = "INFO"
 
-    # --- Security ----------------------------------------------------------
     secret_key: str = Field(
         default="change-me-development-only-secret-key-0123456789",
         min_length=32,
@@ -38,11 +30,11 @@ class Settings(BaseSettings):
     )
     session_cookie_name: str = "verifai_session"
     session_ttl_minutes: int = 480
-    cookie_secure: bool = False  # set True behind HTTPS
+    cookie_secure: bool = False
     cors_origins: list[str] = ["http://localhost:5173", "http://127.0.0.1:5173"]
 
     demo_username: str = "demo.analyst"
-    demo_password: str = "demo-pass-2024"  # noqa: S105 - documented demo default, override via .env
+    demo_password: str = "demo-pass-2024"  # noqa: S105
     demo_display_name: str = "Demo Analyst"
     demo_role: str = "reviewer"
 
@@ -51,25 +43,20 @@ class Settings(BaseSettings):
     rate_limit_upload: str = "20/minute"
     rate_limit_assistant: str = "30/minute"
 
-    # --- Database ----------------------------------------------------------
     database_url: str = f"sqlite:///{(BACKEND_ROOT / 'data' / 'verifai.db').as_posix()}"
     db_echo: bool = False
 
-    # --- Document pipeline -------------------------------------------------
     upload_dir: Path = BACKEND_ROOT / "data" / "uploads"
     max_upload_bytes: int = 5 * 1024 * 1024
     allowed_mime_types: list[str] = ["application/pdf", "image/png", "image/jpeg", "text/plain", "application/json"]
     allowed_extensions: list[str] = [".pdf", ".png", ".jpg", ".jpeg", ".txt", ".json"]
 
-    # --- Human-in-the-loop thresholds (0..100) -----------------------------
     auto_verify_min_confidence: int = Field(default=90, ge=0, le=100)
     review_min_confidence: int = Field(default=70, ge=0, le=100)
 
-    # --- Mock verification -------------------------------------------------
     mock_verification_latency_ms: int = 150
     mock_verification_seed: int = 42
 
-    # --- LLM (Ollama) ------------------------------------------------------
     ollama_base_url: str = "http://localhost:11434"
     ollama_model: str = "llama3.2-vision"
     ollama_timeout_seconds: float = 120.0
@@ -77,8 +64,7 @@ class Settings(BaseSettings):
     llm_temperature: float = 0.1
     llm_max_tokens: int = 700
 
-    # --- RAG ---------------------------------------------------------------
-    qdrant_url: str | None = None  # e.g. http://localhost:6333 ; None => embedded local mode
+    qdrant_url: str | None = None
     qdrant_local_path: Path = PROJECT_ROOT / "rag" / ".qdrant_local"
     qdrant_collection: str = "kyc_policies"
     embedding_model: str = "BAAI/bge-small-en-v1.5"

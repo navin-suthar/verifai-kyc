@@ -1,5 +1,3 @@
-"""Structured-ish logging configuration with a request-id filter."""
-
 from __future__ import annotations
 
 import logging

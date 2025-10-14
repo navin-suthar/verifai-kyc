@@ -1,5 +1,3 @@
-"""FastAPI application factory."""
-
 from __future__ import annotations
 
 import logging
@@ -83,12 +81,10 @@ def create_app() -> FastAPI:
         openapi_url="/openapi.json" if not settings.is_production else None,
     )
 
-    # --- Rate limiting -----------------------------------------------------
     app.state.limiter = limiter
     app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
     app.add_middleware(SlowAPIMiddleware)
 
-    # --- CORS (explicit origins, credentials allowed) ----------------------
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.cors_origins,
@@ -98,7 +94,6 @@ def create_app() -> FastAPI:
         expose_headers=["X-Request-Id", "Retry-After", "X-RateLimit-Limit", "X-RateLimit-Remaining"],
     )
 
-    # --- Request id + security headers -------------------------------------
     @app.middleware("http")
     async def request_context(request: Request, call_next: Callable[[Request], Awaitable[Response]]) -> Response:
         incoming = request.headers.get("x-request-id", "")
@@ -113,7 +108,6 @@ def create_app() -> FastAPI:
             response.headers.setdefault(key, value)
         return response
 
-    # --- Error handlers: never leak internals ------------------------------
     @app.exception_handler(RequestValidationError)
     async def validation_error(_: Request, exc: RequestValidationError) -> JSONResponse:
         errors = [

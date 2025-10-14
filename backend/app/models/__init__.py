@@ -1,5 +1,3 @@
-"""Import all models so Base.metadata knows every table."""
-
 from app.models.application import Application
 from app.models.audit_log import AuditLog
 from app.models.document import Document

@@ -4,8 +4,6 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import path from 'node:path';
 
-// Dev server proxies /api to the FastAPI backend so the browser only talks to
-// one origin (cookies + CSRF stay simple, no CORS wildcard required).
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {

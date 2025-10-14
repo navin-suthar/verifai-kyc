@@ -262,16 +262,37 @@ README.md
 
 ---
 
-## Screenshots (UI reference)
+## Screenshots
 
-| Screen | What it shows |
-| --- | --- |
-| Login | Demo sign-in, privacy notice, stack: Ollama · llama3.2-vision · Qdrant · FastAPI · React |
-| Dashboard | Totals, verified / rejected / review, charts, recent applications |
-| Upload | Dropzone, sample synthetic files, privacy guard |
-| Analysis | Document preview, field confidence, validation, **MOCK** verification, **Ask assistant** |
-| Knowledge Assistant | Grounded RAG answers with citations / extractive fallback |
-| Audit logs | Append-only trail (`assistant.query`, pipeline decisions) — raw IDs never stored |
+All screenshots use **synthetic / mock** data only. Do not publish real identity documents.
+
+### Login
+
+![Login](docs/screenshots/01-login.png)
+
+### Dashboard
+
+![Dashboard](docs/screenshots/02-dashboard.png)
+
+### Recent applications
+
+![Recent applications](docs/screenshots/03-recent-applications.png)
+
+### Upload document
+
+![Upload](docs/screenshots/04-upload.png)
+
+### Document analysis
+
+![Document analysis](docs/screenshots/05-document-analysis.png)
+
+### Knowledge Assistant
+
+![Knowledge Assistant](docs/screenshots/06-knowledge-assistant.png)
+
+### Audit logs
+
+![Audit logs](docs/screenshots/07-audit-logs.png)
 
 ---
 

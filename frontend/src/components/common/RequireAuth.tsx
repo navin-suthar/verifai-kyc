@@ -3,7 +3,6 @@ import { Loader2 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { ROUTES } from '@/app/routes';
 
-/** Route guard: renders children only for authenticated sessions. */
 export default function RequireAuth() {
   const { state } = useAuth();
   const location = useLocation();

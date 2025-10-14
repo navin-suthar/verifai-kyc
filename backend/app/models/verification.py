@@ -14,8 +14,6 @@ if TYPE_CHECKING:
 
 
 class VerificationResult(Base, IdMixin):
-    """Outcome of the MOCK external verification call for an application."""
-
     __tablename__ = "verification_results"
 
     application_id: Mapped[str] = mapped_column(

@@ -9,7 +9,6 @@ interface LinkButtonProps extends LinkProps {
   rightIcon?: ReactNode;
 }
 
-/** A router Link that looks like a Button (keeps semantics: it navigates). */
 export default function LinkButton({ variant, size, leftIcon, rightIcon, className, children, ...rest }: LinkButtonProps) {
   return (
     <Link className={buttonClasses(variant, size, className)} {...rest}>

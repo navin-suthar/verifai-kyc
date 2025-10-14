@@ -1,5 +1,3 @@
-"""Deterministic KYC validation rules applied after field extraction."""
-
 from __future__ import annotations
 
 import re

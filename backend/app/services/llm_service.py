@@ -1,5 +1,3 @@
-"""Thin Ollama client used for explanations and the grounded RAG assistant."""
-
 from __future__ import annotations
 
 import logging
@@ -25,7 +23,6 @@ def generate(
     max_tokens: int | None = None,
     timeout_seconds: float | None = None,
 ) -> tuple[str, int]:
-    """Call Ollama /api/generate. Returns (text, latency_ms)."""
     if not settings.llm_enabled:
         raise LLMError("LLM is disabled")
 

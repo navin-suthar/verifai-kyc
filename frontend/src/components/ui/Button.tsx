@@ -29,7 +29,6 @@ const SIZES: Record<ButtonSize, string> = {
   icon: 'h-9 w-9 p-0',
 };
 
-/** Shared class builder so links can be styled identically to buttons. */
 export function buttonClasses(variant: ButtonVariant = 'primary', size: ButtonSize = 'md', className?: string): string {
   return cn(
     'inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-2 disabled:cursor-not-allowed disabled:opacity-60',

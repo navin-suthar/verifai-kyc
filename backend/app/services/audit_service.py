@@ -1,5 +1,3 @@
-"""Append-only audit trail. Never log raw document numbers or credentials."""
-
 from __future__ import annotations
 
 import logging
@@ -18,7 +16,6 @@ _SENSITIVE_KEYS = {"password", "token", "secret", "document_number", "authorizat
 
 
 def _scrub(details: dict[str, Any]) -> dict[str, Any]:
-    """Drop obviously sensitive keys defensively before persisting."""
     return {k: ("[redacted]" if k.lower() in _SENSITIVE_KEYS else v) for k, v in details.items()}
 
 

@@ -4,7 +4,6 @@ import { ThemeProvider } from '@/contexts/ThemeContext';
 import { ToastProvider } from '@/contexts/ToastContext';
 import ErrorBoundary from '@/components/common/ErrorBoundary';
 
-/** Composes app-wide providers in one place; order matters (toast before auth). */
 export default function AppProviders({ children }: { children: ReactNode }) {
   return (
     <ErrorBoundary>

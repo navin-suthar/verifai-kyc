@@ -1,5 +1,3 @@
-"""Queries and serialisation for KYC applications."""
-
 from __future__ import annotations
 
 from sqlalchemy import func, or_, select
@@ -55,7 +53,6 @@ def list_applications(
 
 
 def next_customer_id(db: Session) -> str:
-    """Generate the next DEMO-xxxxx identifier (monotonic, human-friendly)."""
     last = db.scalar(select(func.max(Application.customer_id)))
     if last and last.startswith("DEMO-") and last[5:].isdigit():
         return f"DEMO-{int(last[5:]) + 1:05d}"

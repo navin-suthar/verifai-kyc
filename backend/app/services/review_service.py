@@ -1,5 +1,3 @@
-"""Human-in-the-loop review decisions."""
-
 from __future__ import annotations
 
 from fastapi import HTTPException, status

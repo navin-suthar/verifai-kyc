@@ -1,9 +1,3 @@
-"""Local MOCK KYC verification providers.
-
-These endpoints simulate government / bureau checks. Nothing is sent off-box
-and no real registry is contacted. Responses are deterministic so demos replay.
-"""
-
 from __future__ import annotations
 
 import hashlib
@@ -48,7 +42,6 @@ def verify_synthetic(
     address: str | None = None,
     settings: Settings | None = None,
 ) -> dict:
-    """Return a mock registry response. Always labelled as mock."""
     seed = settings.mock_verification_seed if settings else 42
     now = datetime.now(UTC)
     provider = provider_for(document_type)

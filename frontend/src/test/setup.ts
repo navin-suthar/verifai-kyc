@@ -6,7 +6,6 @@ afterEach(() => {
   cleanup();
 });
 
-// jsdom lacks matchMedia and ResizeObserver (used by theme detection and Recharts).
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: vi.fn().mockImplementation((query: string) => ({

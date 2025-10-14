@@ -10,10 +10,6 @@ interface ErrorBoundaryState {
   hasError: boolean;
 }
 
-/**
- * Error boundaries must be class components (React has no hook equivalent).
- * Technical details are logged, never rendered to the user.
- */
 export default class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   state: ErrorBoundaryState = { hasError: false };
 

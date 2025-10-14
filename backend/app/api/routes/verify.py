@@ -1,5 +1,3 @@
-"""Standalone MOCK verification APIs. Clearly labelled — not real government services."""
-
 from __future__ import annotations
 
 from fastapi import APIRouter
@@ -37,7 +35,6 @@ def verify_pan(payload: MockVerifyRequest, settings: SettingsDep, _user: UserDep
 
 @router.post("/aadhaar", response_model=MockVerifyResponse)
 def verify_aadhaar(payload: MockVerifyRequest, settings: SettingsDep, _user: UserDep) -> MockVerifyResponse:
-    """Synthetic national-ID check. Named /aadhaar only as a familiar KYC analogue — MOCK only."""
     return _respond(payload, DocumentType.SYNTHETIC_NATIONAL_ID, settings)
 
 

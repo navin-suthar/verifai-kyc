@@ -3,7 +3,6 @@ import * as authApi from '@/lib/api/authApi';
 import { setUnauthorizedHandler } from '@/lib/api/client';
 import type { CurrentUser } from '@/types/domain';
 
-/** Discriminated union: no "user may be undefined while authenticated" ambiguity. */
 export type AuthState =
   | { status: 'loading'; user: null }
   | { status: 'authenticated'; user: CurrentUser }
@@ -22,8 +21,6 @@ const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<AuthState>({ status: 'loading', user: null });
 
-  // Session lives in an httpOnly cookie managed by the backend; the client only
-  // keeps the (non-sensitive) user profile in memory.
   useEffect(() => {
     let active = true;
     authApi.getCurrentUser().then((user) => {

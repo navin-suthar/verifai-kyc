@@ -1,5 +1,3 @@
-"""Shared test fixtures: isolated in-memory SQLite DB + authenticated client."""
-
 from __future__ import annotations
 
 import os
@@ -34,7 +32,6 @@ def engine():
 
 @pytest.fixture()
 def db(engine) -> Iterator[Session]:
-    """Each test runs inside a transaction that is rolled back afterwards."""
     connection = engine.connect()
     transaction = connection.begin()
     TestingSession = sessionmaker(

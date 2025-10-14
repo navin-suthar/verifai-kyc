@@ -1,5 +1,3 @@
-"""FastAPI dependencies: settings, DB session, authenticated user, CSRF guard."""
-
 from __future__ import annotations
 
 from typing import Annotated
@@ -19,7 +17,6 @@ DbDep = Annotated[Session, Depends(get_db)]
 
 
 def _extract_token(request: Request, settings: Settings) -> tuple[str | None, str]:
-    """Return (token, source) where source is 'bearer' or 'cookie'."""
     auth = request.headers.get("authorization", "")
     if auth.lower().startswith("bearer "):
         return auth[7:].strip(), "bearer"
@@ -35,8 +32,6 @@ def get_current_user(request: Request, settings: SettingsDep) -> CurrentUser:
     if payload is None:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail="Session is invalid or has expired")
 
-    # CSRF defence for cookie sessions: browsers cannot add custom headers cross-site
-    # without a CORS preflight, so requiring X-Requested-With blocks forged form posts.
     if source == "cookie" and request.method not in SAFE_METHODS:
         if request.headers.get("x-requested-with") != "XMLHttpRequest":
             raise HTTPException(status.HTTP_403_FORBIDDEN, detail="Missing CSRF protection header")

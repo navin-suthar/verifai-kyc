@@ -1,5 +1,3 @@
-"""Engine / session factory. Supports PostgreSQL (Docker) and SQLite (local dev, tests)."""
-
 from __future__ import annotations
 
 from collections.abc import Generator

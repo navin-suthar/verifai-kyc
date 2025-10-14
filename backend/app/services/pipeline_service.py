@@ -1,5 +1,3 @@
-"""Orchestrates extract → validate → mock-verify → decide → explain → audit."""
-
 from __future__ import annotations
 
 import logging

@@ -1,7 +1,3 @@
-/**
- * Typed access to Vite environment variables. Only non-secret configuration
- * belongs here: anything in VITE_* is embedded in the client bundle.
- */
 interface AppEnv {
   apiBaseUrl: string;
   useMocks: boolean;

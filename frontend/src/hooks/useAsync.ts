@@ -15,11 +15,6 @@ interface UseAsyncResult<T> {
   reload: () => Promise<void>;
 }
 
-/**
- * Runs an async loader on mount (and whenever `deps` change), tracking
- * loading / success / error states with cancellation on unmount so a late
- * response never updates an unmounted component.
- */
 export function useAsync<T>(loader: () => Promise<T>, deps: readonly unknown[] = []): UseAsyncResult<T> {
   const [state, setState] = useState<AsyncState<T>>({ status: 'idle', data: null, error: null });
   const loaderRef = useRef(loader);
@@ -42,7 +37,7 @@ export function useAsync<T>(loader: () => Promise<T>, deps: readonly unknown[] =
   useEffect(() => {
     void run();
     return () => {
-      requestId.current += 1; // invalidate in-flight request
+      requestId.current += 1;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [run, ...deps]);

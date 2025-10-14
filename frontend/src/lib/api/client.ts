@@ -1,7 +1,6 @@
 import axios, { AxiosError, type AxiosInstance, type InternalAxiosRequestConfig } from 'axios';
 import { env } from '@/config/env';
 
-/** Discriminated union so UI code can branch on error type without `any`. */
 export type ApiError =
   | { type: 'network'; message: string }
   | { type: 'timeout'; message: string }
@@ -93,7 +92,6 @@ export function toApiError(error: unknown): ApiError {
 type UnauthorizedHandler = () => void;
 let onUnauthorized: UnauthorizedHandler | null = null;
 
-/** Allows the auth provider to react to 401s (e.g. clear session, redirect). */
 export function setUnauthorizedHandler(handler: UnauthorizedHandler | null): void {
   onUnauthorized = handler;
 }
@@ -102,7 +100,7 @@ function createClient(): AxiosInstance {
   const instance = axios.create({
     baseURL: env.apiBaseUrl,
     timeout: env.requestTimeoutMs,
-    withCredentials: true, // session cookie is httpOnly; never readable by JS
+    withCredentials: true,
     headers: {
       'X-Requested-With': 'XMLHttpRequest',
       Accept: 'application/json',

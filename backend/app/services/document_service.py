@@ -1,9 +1,3 @@
-"""Upload hygiene, text extraction and field extraction for synthetic KYC files.
-
-Real-world identity patterns (PAN / Aadhaar style) are rejected so this demo
-cannot be used to process genuine personal documents.
-"""
-
 from __future__ import annotations
 
 import hashlib
@@ -56,7 +50,7 @@ JSON_TYPE_KEYS = ("document_type", "documentType", "type")
 
 
 class DocumentError(ValueError):
-    """Raised for rejected uploads (type, size, privacy, sanitisation)."""
+    pass
 
 
 @dataclass
@@ -135,7 +129,6 @@ def validate_upload(content: bytes, filename: str, declared_type: str | None, se
 
 
 def contains_real_identity_pattern(text: str) -> str | None:
-    """Return a human-readable reason if the payload looks like a real ID."""
     if REAL_PAN.search(text):
         return "A real-format PAN-like identifier was detected. Only synthetic IDs (e.g. SYNTHETIC1234) are accepted."
     # Ignore DEMO-####-####-#### which is our synthetic national ID.

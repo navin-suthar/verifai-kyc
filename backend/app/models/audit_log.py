@@ -10,8 +10,6 @@ from app.database.base import Base, IdMixin, utcnow
 
 
 class AuditLog(Base, IdMixin):
-    """Append-only trail of security-relevant and pipeline events."""
-
     __tablename__ = "audit_logs"
 
     timestamp: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, nullable=False)

@@ -1,5 +1,3 @@
-"""Shared slowapi limiter. Keyed by client IP (X-Forwarded-For aware)."""
-
 from __future__ import annotations
 
 from slowapi import Limiter

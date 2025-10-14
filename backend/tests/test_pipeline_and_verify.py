@@ -24,7 +24,6 @@ def test_mock_verify_fail_token_not_found(auth_client: TestClient) -> None:
 
 
 def test_rate_limited_upload_accepts_response_param(auth_client: TestClient) -> None:
-    """Regression: slowapi headers_enabled requires a Response argument or returns 500."""
     content = b"Name: Rahul Sharma\nDate of Birth: 1989-04-12\nDocument Number: SYNTHETIC1234\nAddress: 14 Lotus Lane, Demo Nagar, Mumbai 400001\n"
     resp = auth_client.post("/api/applications", files={"file": ("rahul.txt", content, "text/plain")})
     assert resp.status_code == 201, resp.text

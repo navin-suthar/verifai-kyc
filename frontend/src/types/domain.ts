@@ -1,8 +1,3 @@
-/**
- * Domain types shared across the frontend. Field names use snake_case so they
- * mirror the FastAPI/Pydantic schemas 1:1 without a mapping layer.
- */
-
 export type ApplicationStatus = 'pending' | 'processing' | 'verified' | 'rejected' | 'needs_review';
 
 export const APPLICATION_STATUSES: readonly ApplicationStatus[] = [
