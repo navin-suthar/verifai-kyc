@@ -1,4 +1,4 @@
-import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import type { DailyVolume } from '@/types/domain';
 import { formatShortDate } from '@/lib/utils/format';
 import { useTheme } from '@/contexts/ThemeContext';
@@ -21,19 +21,12 @@ export default function VolumeChart({ data }: VolumeChartProps) {
   return (
     <div className="h-72 w-full">
       <ResponsiveContainer width="100%" height="100%">
-        <AreaChart data={data} margin={{ top: 8, right: 8, left: -16, bottom: 0 }}>
-          <defs>
-            {SERIES.map((s) => (
-              <linearGradient key={s.key} id={`grad-${s.key}`} x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor={s.color} stopOpacity={0.35} />
-                <stop offset="95%" stopColor={s.color} stopOpacity={0} />
-              </linearGradient>
-            ))}
-          </defs>
+        <BarChart data={data} margin={{ top: 8, right: 8, left: -16, bottom: 0 }} barCategoryGap="30%">
           <CartesianGrid strokeDasharray="3 3" stroke={grid} vertical={false} />
           <XAxis dataKey="date" tickFormatter={formatShortDate} tick={{ fill: tick, fontSize: 11 }} axisLine={false} tickLine={false} />
           <YAxis tick={{ fill: tick, fontSize: 11 }} axisLine={false} tickLine={false} allowDecimals={false} />
           <Tooltip
+            cursor={{ fill: grid, opacity: 0.4 }}
             labelFormatter={(label) => formatShortDate(String(label))}
             contentStyle={{
               background: 'var(--c-surface)',
@@ -43,19 +36,19 @@ export default function VolumeChart({ data }: VolumeChartProps) {
               color: 'var(--c-fg)',
             }}
           />
-          {SERIES.map((s) => (
-            <Area
+          <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 12, paddingTop: 8 }} />
+          {SERIES.map((s, i) => (
+            <Bar
               key={s.key}
-              type="monotone"
               dataKey={s.key}
               name={s.label}
-              stroke={s.color}
-              strokeWidth={2}
-              fill={`url(#grad-${s.key})`}
-              stackId="1"
+              stackId="volume"
+              fill={s.color}
+              radius={i === SERIES.length - 1 ? [4, 4, 0, 0] : 0}
+              maxBarSize={28}
             />
           ))}
-        </AreaChart>
+        </BarChart>
       </ResponsiveContainer>
     </div>
   );

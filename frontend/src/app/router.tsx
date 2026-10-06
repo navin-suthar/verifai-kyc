@@ -8,6 +8,7 @@ import { ROUTES } from './routes';
 
 const DashboardPage = lazy(() => import('@/features/dashboard'));
 const LoginPage = lazy(() => import('@/features/auth'));
+const ApplicationsPage = lazy(() => import('@/features/applications'));
 
 function PageFallback() {
   return (
@@ -30,10 +31,7 @@ export const router = createBrowserRouter([
         element: <AppShell />,
         children: [
           { path: ROUTES.dashboard, element: withSuspense(<DashboardPage />) },
-          {
-            path: ROUTES.applications,
-            element: <ComingSoon title="Applications" description="All processed KYC applications." phase="Phase 2" />,
-          },
+          { path: ROUTES.applications, element: withSuspense(<ApplicationsPage />) },
           {
             path: '/applications/:id',
             element: <ComingSoon title="Document Analysis" description="Extracted fields, validation and AI explanation." phase="Phase 3" />,

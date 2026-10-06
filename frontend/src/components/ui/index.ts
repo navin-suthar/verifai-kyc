@@ -12,3 +12,6 @@ export { default as Table } from './Table';
 export type { Column } from './Table';
 export { default as PageHeader } from './PageHeader';
 export { default as ProgressBar } from './ProgressBar';
+export { default as Pagination } from './Pagination';
+export { default as Select } from './Select';
+export { default as Input } from './Input';
