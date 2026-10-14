@@ -1,9 +1,12 @@
-# Secrets / local config
+# Secrets / local config — never commit any .env file (including .env.example)
 .env
 .env.*
-!.env.example
 **/.env
-!**/.env.example
+**/.env.*
+*.pem
+*.key
+credentials.json
+secrets.json
 
 # Node
 node_modules/
@@ -25,6 +28,7 @@ htmlcov/
 .coverage
 
 # Runtime data (uploads, local vector store, sqlite)
+# IMPORTANT: uploaded documents stay local — do not publish real KYC scans
 backend/data/
 backend/uploads/
 backend/*.db

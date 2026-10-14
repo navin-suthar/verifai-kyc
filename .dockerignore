@@ -1,0 +1,13 @@
+**/node_modules
+**/dist
+**/.venv
+**/__pycache__
+**/.pytest_cache
+**/.ruff_cache
+**/coverage
+**/.coverage
+backend/data
+rag/.qdrant_local
+rag/embeddings/cache
+.git
+.env

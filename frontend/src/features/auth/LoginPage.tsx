@@ -91,7 +91,7 @@ export default function LoginPage() {
           </ul>
         </div>
         <p className="relative text-[11px] text-brand-200/70">
-          Portfolio demo · Ollama + Qwen3 · Qdrant · FastAPI · PostgreSQL · React
+          Portfolio demo · Ollama + llama3.2-vision · Qdrant · FastAPI · PostgreSQL · React
         </p>
       </section>
 

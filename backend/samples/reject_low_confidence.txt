@@ -1,0 +1,7 @@
+SYNTHETIC DOCUMENT (DEMO ONLY)
+
+Name: Test User
+Date of Birth: 2015-01-01
+Document Type: Unknown
+Document Number: FAIL0000
+Address: n/a

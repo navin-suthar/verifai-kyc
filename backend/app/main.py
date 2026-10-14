@@ -42,6 +42,21 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
 
     Base.metadata.create_all(bind=engine)
     settings.upload_dir.mkdir(parents=True, exist_ok=True)
+    if settings.environment == "development":
+        from app.database.seed import seed
+        from app.database.session import SessionLocal
+
+        with SessionLocal() as db:
+            created = seed(db)
+            if created:
+                logger.info("seeded %s synthetic applications", created)
+        try:
+            from app.services import rag_service
+
+            n = rag_service.ingest_policies(settings)
+            logger.info("rag knowledge base ready (%s chunks)", n)
+        except Exception as exc:  # noqa: BLE001
+            logger.info("rag ingest skipped: %s", exc)
     logger.info(
         "%s v%s starting (env=%s, db=%s)",
         settings.app_name,

@@ -163,3 +163,48 @@ export interface Paginated<T> {
   page: number;
   page_size: number;
 }
+
+export interface TypeCount {
+  document_type: string;
+  count: number;
+}
+
+export interface ConfidenceByStatus {
+  status: string;
+  average_confidence: number;
+  count: number;
+}
+
+export interface AnalyticsSummary {
+  total_applications: number;
+  verified: number;
+  rejected: number;
+  needs_review: number;
+  pending: number;
+  average_confidence: number;
+  success_rate: number;
+  auto_verified_share: number;
+  human_reviewed: number;
+  status_breakdown: StatusCount[];
+  daily_volume: DailyVolume[];
+  document_types: TypeCount[];
+  confidence_by_status: ConfidenceByStatus[];
+  thresholds: DecisionThresholds;
+}
+
+export interface PublicSettings {
+  app_name: string;
+  auto_verify_min_confidence: number;
+  review_min_confidence: number;
+  max_upload_bytes: number;
+  allowed_extensions: string[];
+  llm_enabled: boolean;
+  ollama_model: string;
+  mock_verification: boolean;
+  privacy_notice: string;
+}
+
+export interface AssistantAskRequest {
+  question: string;
+  application_id?: string;
+}

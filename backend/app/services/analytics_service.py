@@ -43,6 +43,52 @@ def _daily_volume(db: Session, days: int = VOLUME_DAYS) -> list[DailyVolume]:
     return out
 
 
+def analytics_summary(db: Session) -> "AnalyticsSummary":
+    from app.models.enums import ReviewDecision
+    from app.models.review import Review
+    from app.schemas.analytics import AnalyticsSummary, ConfidenceByStatus, TypeCount
+    from app.core.config import get_settings
+
+    settings = get_settings()
+    dash = dashboard_summary(db)
+    type_rows = db.execute(select(Application.document_type, func.count()).group_by(Application.document_type)).all()
+    conf_rows = db.execute(
+        select(Application.status, func.avg(Application.confidence), func.count()).group_by(Application.status)
+    ).all()
+    human_reviewed = db.scalar(select(func.count()).select_from(Review)) or 0
+    decided = dash.verified + dash.rejected
+    # Approximated: verified apps without an approve review are treated as auto-verified.
+    approved = db.scalar(select(func.count()).select_from(Review).where(Review.decision == ReviewDecision.APPROVE)) or 0
+    auto_share = ((dash.verified - int(approved)) / decided * 100) if decided else 0.0
+
+    return AnalyticsSummary(
+        total_applications=dash.total_applications,
+        verified=dash.verified,
+        rejected=dash.rejected,
+        needs_review=dash.needs_review,
+        pending=dash.pending,
+        average_confidence=dash.average_confidence,
+        success_rate=dash.success_rate,
+        auto_verified_share=round(max(0.0, auto_share), 1),
+        human_reviewed=int(human_reviewed),
+        status_breakdown=dash.status_breakdown,
+        daily_volume=dash.daily_volume,
+        document_types=[TypeCount(document_type=str(t), count=int(c)) for t, c in type_rows],
+        confidence_by_status=[
+            ConfidenceByStatus(
+                status=str(status),
+                average_confidence=round(float(avg or 0), 1),
+                count=int(count),
+            )
+            for status, avg, count in conf_rows
+        ],
+        thresholds={
+            "auto_verify_min": settings.auto_verify_min_confidence,
+            "review_min": settings.review_min_confidence,
+        },
+    )
+
+
 def dashboard_summary(db: Session) -> DashboardSummary:
     counts = _status_counts(db)
     total = sum(counts.values())

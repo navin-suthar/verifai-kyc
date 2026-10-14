@@ -15,3 +15,4 @@ export { default as ProgressBar } from './ProgressBar';
 export { default as Pagination } from './Pagination';
 export { default as Select } from './Select';
 export { default as Input } from './Input';
+export { default as Textarea } from './Textarea';

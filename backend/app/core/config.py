@@ -71,7 +71,7 @@ class Settings(BaseSettings):
 
     # --- LLM (Ollama) ------------------------------------------------------
     ollama_base_url: str = "http://localhost:11434"
-    ollama_model: str = "qwen3.6"
+    ollama_model: str = "llama3.2-vision"
     ollama_timeout_seconds: float = 120.0
     llm_enabled: bool = True
     llm_temperature: float = 0.1
@@ -94,6 +94,13 @@ class Settings(BaseSettings):
     def _split_csv(cls, value: object) -> object:
         if isinstance(value, str):
             return [v.strip() for v in value.split(",") if v.strip()]
+        return value
+
+    @field_validator("qdrant_url", mode="before")
+    @classmethod
+    def _empty_url(cls, value: object) -> object:
+        if value == "":
+            return None
         return value
 
     @field_validator("review_min_confidence")

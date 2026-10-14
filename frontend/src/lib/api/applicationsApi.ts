@@ -24,3 +24,27 @@ export async function getApplication(id: string): Promise<ApplicationDetail> {
   const { data } = await apiClient.get<ApplicationDetail>(`/applications/${encodeURIComponent(id)}`);
   return data;
 }
+
+export async function uploadApplication(file: File): Promise<ApplicationDetail> {
+  const form = new FormData();
+  form.append('file', file);
+  const { data } = await apiClient.post<ApplicationDetail>('/applications', form, { timeout: 120_000 });
+  return data;
+}
+
+export async function submitReview(
+  id: string,
+  decision: 'approve' | 'reject' | 'request_info',
+  notes?: string,
+): Promise<ApplicationDetail> {
+  if (!isSafeIdentifier(id)) throw { type: 'validation', message: 'Invalid application id.' };
+  const { data } = await apiClient.post<ApplicationDetail>(`/applications/${encodeURIComponent(id)}/review`, {
+    decision,
+    notes: notes?.trim() || null,
+  });
+  return data;
+}
+
+export function documentPreviewUrl(id: string): string {
+  return `/api/applications/${encodeURIComponent(id)}/document`;
+}
