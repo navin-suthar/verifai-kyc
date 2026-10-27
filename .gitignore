@@ -1,0 +1,46 @@
+# Secrets / local config — never commit any .env file (including .env.example)
+.env
+.env.*
+**/.env
+**/.env.*
+*.pem
+*.key
+credentials.json
+secrets.json
+
+# Node
+node_modules/
+dist/
+coverage/
+*.log
+npm-debug.log*
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+htmlcov/
+.coverage
+
+# Runtime data (uploads, local vector store, sqlite)
+# IMPORTANT: uploaded documents stay local — do not publish real KYC scans
+backend/data/
+backend/uploads/
+backend/*.db
+rag/.qdrant_local/
+rag/embeddings/cache/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local-only notes
+SECURITY.md
+
